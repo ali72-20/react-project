@@ -242,7 +242,7 @@ export default function App() {
                     color: "#fff",
                   }}>
                     I am <strong style={{ color: "#fff" }}>{typed}</strong>
-                    <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ duration: 1, repeat: Infinity }} style={{ marginLeft: 8, color: "#fff" }}>|</motion.span>
+                    <motion.span animate={{ opacity: [1,0,1] }} transition={{ duration: 1, repeat: Infinity }} style={{ marginLeft: 8, color: "#fff" }}>|</motion.span>
                   </p>
                   <p style={{
                     marginTop: 16,
@@ -901,10 +901,11 @@ function ModalWork({ selectedWork, onClose }) {
           style={{
             width: "100%",
             maxWidth: 900,
-            maxHeight: "90vh",
+            maxHeight: "90vh",    // allow up to 90% viewport height
+            overflowY: "auto",    // scrollable vertically if content is taller
             borderRadius: 20,
-            overflow: "hidden",
             position: "relative",
+            background: "#000"    // optional background behind image
           }}
           onClick={e => e.stopPropagation()}
         >
@@ -930,17 +931,20 @@ function ModalWork({ selectedWork, onClose }) {
             }}
           >×</motion.button>
 
-          {/* Only show image, no description panel */}
-          <img
-            src={selectedWork.image}
-            alt={selectedWork.title}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-              background: "#000"
-            }}
-          />
+          <div style={{ width: "100%" }}>
+            <img
+              src={selectedWork.image}
+              alt={selectedWork.title}
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+                objectFit: "contain",
+                background: "#000"
+              }}
+            />
+            {/* If you want extra content (caption, description, etc.) you can add it below and it will be scrollable */}
+          </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>
